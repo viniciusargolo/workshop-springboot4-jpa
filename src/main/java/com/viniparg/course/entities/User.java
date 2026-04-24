@@ -1,5 +1,6 @@
 package com.viniparg.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -24,6 +25,7 @@ public class User implements Serializable {
     private String password;
 
     @OneToMany(mappedBy = "client")
+    @JsonIgnore
     private final List<Order> orders = new ArrayList<>();
 
     public User() {
