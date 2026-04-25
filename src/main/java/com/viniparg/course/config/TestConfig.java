@@ -1,8 +1,10 @@
 package com.viniparg.course.config;
 
+import com.viniparg.course.entities.Category;
 import com.viniparg.course.entities.Order;
 import com.viniparg.course.entities.User;
 import com.viniparg.course.entities.enums.OrderStatus;
+import com.viniparg.course.repositories.CategoryRepository;
 import com.viniparg.course.repositories.OrderRepository;
 import com.viniparg.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,16 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
+
+        Category c1 = new Category(null, "Electronics");
+        Category c2 = new Category(null, "Books");
+        Category c3 = new Category(null, "Computers");
 
         User u1 = new User(null, "Maria Brown", "mariab@email.com", "987654321", "12345");
         User u2 = new User(null, "Alex Green", "alex@email.com", "123456789", "12345");
@@ -34,7 +43,9 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2019-06-20T19:42:37Z"), OrderStatus.WAITING_PAYMENT,u2);
         Order o3 = new Order(null, Instant.parse("2019-06-20T19:33:17Z"), OrderStatus.WAITING_PAYMENT,u1);
 
+
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+        categoryRepository.saveAll(Arrays.asList(c1, c2, c3));
     }
 }
